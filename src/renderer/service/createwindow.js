@@ -14,7 +14,7 @@ module.exports = {
     win.loadURL(winURL)
     win.show() 
   },
-  openImageDialog() {
+  openImageDialog(event) {
     const saveBtn = document.getElementById('save-dialog')
 
     saveBtn.addEventListener('click', function (event) {
