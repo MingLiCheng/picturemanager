@@ -1,5 +1,21 @@
 import { app, BrowserWindow } from 'electron'
 
+const ipc = require('electron').ipcMain
+const dialog = require('electron').dialog
+
+// 开启保存图片的Dialog
+ipc.on('save-dialog', function (event) {
+  const options = {
+    title: 'Save an Image',
+    filters: [
+      { name: 'Images', extensions: ['jpg', 'png', 'gif'] }
+    ]
+  }
+  dialog.showSaveDialog(options, function (filename) {
+    event.sender.send('saved-file', filename)
+  })
+})
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -25,6 +41,7 @@ function createWindow () {
   })
 
   mainWindow.loadURL(winURL)
+
 
   mainWindow.on('closed', () => {
     mainWindow = null

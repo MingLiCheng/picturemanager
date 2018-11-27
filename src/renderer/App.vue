@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <!-- <landing-page></landing-page> -->
-    <!-- <h1>Hello World</h1> -->
+    
     <el-container style="border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+      
+      <!-- 左侧边栏 -->
+      <el-aside width="220px" style="background-color: rgb(238, 241, 246)">
         <el-menu :default-openeds="['1', '3']">
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-message"></i>导航一</template>
@@ -12,20 +14,25 @@
               <router-link to="/imageslist">
                 <el-menu-item index="1-1">图片</el-menu-item>
               </router-link>
-
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <router-link to="/">
+                <el-menu-item index="1-2">图片列表</el-menu-item>
+              </router-link>             
             </el-menu-item-group>
             <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
+              <router-link to="/imageupload">
+                <el-menu-item index="1-3">图片上传</el-menu-item>
+              </router-link>
             </el-menu-item-group>
             <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+              <template slot="title" >新窗口测试</template>
+              <el-menu-item index="1-4-1" @click="createNewWin">打开新窗口</el-menu-item>
             </el-submenu>
           </el-submenu>
         </el-menu>
       </el-aside>
       <el-container>
+
+        <!-- 上方导航栏 -->
         <el-header style="text-align: right; font-size: 12px">
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
@@ -39,18 +46,8 @@
         </el-header>
 
         <el-main>
-          <!-- <el-table :data="imagesfilepathlist">
-            <el-table-column prop="imsrc" label="日期" width="240">
-            </el-table-column>
-            <el-table-column prop="imsrc" label="姓名" width="240">
-            </el-table-column>
-            <el-table-column prop="imsrc" label="地址">
-            </el-table-column>
-          </el-table> -->
+          <!-- main 主要内容显示位置 -->
           <router-view></router-view>
-
-
-
         </el-main>
 
       </el-container>
@@ -59,11 +56,17 @@
 </template>
 
 <script>
-
+  import createwin from './service/createwindow.js'
   export default {
     name: 'ele-vue-picturemanager',
     components: {
+    },
+    methods:{
+      createNewWin(){
+        createwin()
+      }
     }
+
   }
 </script>
 
