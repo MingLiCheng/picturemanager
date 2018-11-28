@@ -1,5 +1,29 @@
-const imagesfile = require('./imagesfile')
+// const imagesfile = require('./imagesfile')
+
 
 // import imesds from ('imagesfile.js')
 
-console.log(imagesfile.getImageFilesPath("../../../static/upload/images/"))
+// console.log(imagesfile.getImageFilesPath("../../../static/upload/images/"))
+
+
+let filelist = [
+  {
+    name:'food.jpeg',
+    url:'E:/workspace/ele-vue-picturemanager/static/upload/images/11.jpg'
+  },
+  {
+    name:'food.jpeg',
+    url:'E:/workspace/ele-vue-picturemanager/static/upload/images/11.jpg'
+  }
+]
+
+let newlist = filelist.map(function(item){
+  var obj = {}
+  obj.sourcepath = item.url
+  obj.topath = 'static/upload/images/'+'-'+new Date().getTime()+'-'+item.name
+  return obj
+})
+
+newlist.forEach((item) => {
+  console.log(item)
+})

@@ -71,5 +71,11 @@ module.exports ={
  */
   copyfile:(sourcepath,topath) => {
     fs.writeFileSync(topath,fs.readFileSync(sourcepath))
+  },
+  pathFormat:(item) => {
+    var obj = {}
+    obj.sourcepath = item.url
+    obj.topath = 'static/upload/images/'+'-'+new Date().getTime()+'-'+item.name
+    return obj
   }
 } 

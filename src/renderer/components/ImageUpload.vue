@@ -30,8 +30,6 @@ import bus from '../service/evenbus.js'
           //  url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
           // }         
         ],
-        addImageinfolist:[],
-        imagesfilepathlist:[],
         sourcepath:'',
         topath:''
       };
@@ -46,30 +44,48 @@ import bus from '../service/evenbus.js'
     },
     methods: {
       submitUpload() {
+
         this.$refs.upload.submit();
-        imageinfo.copyfile(this.sourcepath,this.topath)
+
+        // 点击上传 首先把 filelist中的所有的数据对应的 路径都保存到 一个数组中
+        this.fileList.map(imageinfo.pathFormat(item)).forEach(element => {
+          alert(element.sourcepath+'-------'+element.topath)
+          imageinfo.copyfile(element.sourcepath,element.topath)
+        });
+        
+        // 单文件上传
+        // imageinfo.copyfile(this.sourcepath,this.topath)
         this.fileList = []
+        this.$message({
+            showClose: true,
+            message: '上传成功',
+            type: 'success',
+            center: true
+        });
 
       },
       handleRemove(file, fileList) {
         // console.log(file, fileList);
+        // 删除待上传的列表文件时，将对应的文件从数组中删除
       },
       handlePreview(file) {
         // console.log(file);
       },
       submitAction(){
+        alert('1')
         imageinfo.copyfile(this.sourcepath,this.topath)
         this.fileList = []
       },
       selectImage(file,fileList){
-        this.sourcepath = file.raw.path.replace(/\\/g,'/')
+       this.sourcepath = file.raw.path.replace(/\\/g,'/')
         // 给上传的 图片 做一个唯一的名字 --
-        this.topath = 'static/upload/images/'+'-'+new Date().getTime()+'-'+file.raw.name
+      //  this.topath = 'static/upload/images/'+'-'+new Date().getTime()+'-'+file.raw.name
         var imageitem = {}
         imageitem.name =  file.raw.name
         imageitem.url = this.sourcepath
         // imageitem.status = "ready"
         this.fileList.push(imageitem)
+   
 
       }
 
