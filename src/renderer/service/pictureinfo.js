@@ -57,27 +57,19 @@ var MyDirectory = { //
 
 
 module.exports ={
+//   /**
+//  * @param {string} imagespath- 需要获取的图片的地址.
+//  */
   getImageInfo:(imagespath)=>{
     var imageslist = MyDirectory.getImageFiles(imagespath);//"../../../static/upload/images/"
     return imageslist
   },
-  test:'Hello World'
+  test:'Hello World',
+  /**
+ * @param {string} sourcepath- 源文件地址.
+ * @param {string} topath- 目标文件地址.
+ */
+  copyfile:(sourcepath,topath) => {
+    fs.writeFileSync(topath,fs.readFileSync(sourcepath))
+  }
 } 
-
-
-//  测试记载所有文件 在文件上传列表
-//    var aaa = []
-      // var imagesfilepathlist = imageinfo.getImageInfo('static/upload/images/')
-      // console.log(imagesfilepathlist)
-      // imagesfilepathlist.forEach(function(item,index){
-        
-      //   var temp = {}
-      //   temp.name = item.name
-      //   temp.url = item.path+item.name  
-      //   aaa.push(temp)
-
-      // })
-      // this.fileList = this.fileList.concat(aaa)
-      // this.fileList.forEach(function (item,index) {
-      //   console.log(item)
-      // })

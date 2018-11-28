@@ -20,7 +20,6 @@
 
 <script>
 import imageinfo from '../service/pictureinfo.js'
-import copyfile from '../service/copyfile.js'
 import bus from '../service/evenbus.js'
   export default {
     data() {
@@ -48,7 +47,7 @@ import bus from '../service/evenbus.js'
     methods: {
       submitUpload() {
         this.$refs.upload.submit();
-        copyfile(this.sourcepath,this.topath)
+        imageinfo.copyfile(this.sourcepath,this.topath)
         this.fileList = []
 
       },
@@ -59,8 +58,7 @@ import bus from '../service/evenbus.js'
         // console.log(file);
       },
       submitAction(){
-        // -----
-        copyfile(this.sourcepath,this.topath)
+        imageinfo.copyfile(this.sourcepath,this.topath)
         this.fileList = []
       },
       selectImage(file,fileList){
@@ -70,7 +68,7 @@ import bus from '../service/evenbus.js'
         var imageitem = {}
         imageitem.name =  file.raw.name
         imageitem.url = this.sourcepath
-        imageitem.status = "ready"
+        // imageitem.status = "ready"
         this.fileList.push(imageitem)
 
       }

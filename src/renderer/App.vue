@@ -22,6 +22,7 @@
               <router-link to="/imageupload">
                 <el-menu-item index="1-3">图片上传</el-menu-item>
               </router-link>
+              <el-menu-item index="1-4" @click="newDialog">会话测试</el-menu-item>
             </el-menu-item-group>
             <el-submenu index="1-4">
               <template slot="title" >新窗口测试</template>
@@ -56,14 +57,19 @@
 </template>
 
 <script>
-  import createwin from './service/createwindow.js'
+  import myutils from './service/myutils.js'
   export default {
     name: 'ele-vue-picturemanager',
     components: {
     },
     methods:{
       createNewWin(){
-        createwin()
+        myutils.openNewWin()
+      },
+      newDialog(){
+        myutils.openImageDialog((selectedpath) => {
+          console.log(selectedpath)         
+        })
       }
     }
 

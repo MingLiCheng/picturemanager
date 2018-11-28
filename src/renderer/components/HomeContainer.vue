@@ -1,9 +1,14 @@
 <template>
 
   <el-table :data="imagesfilepathlist">
-    <el-table-column prop="path" label="路径" width="240"><span>Hello World</span>
+    <el-table-column label="预览"  width="110">
+      <template slot-scope="scope">
+        <img :src="scope.row.path+scope.row.name" alt="" style="width:50px; height:50px;">
+      </template>
     </el-table-column>
-    <el-table-column prop="name" label="名称" width="240">
+    <!-- <el-table-column prop="path" label="路径" width="240"><span>Hello World</span>
+    </el-table-column> -->
+    <el-table-column prop="name" label="名称" width="260">
     </el-table-column>
     <el-table-column prop="size" label="大小" width="240">
     </el-table-column>
@@ -11,8 +16,7 @@
       label="操作">
       <template slot-scope="scope">
         <el-button @click="handlClick(scope.row)" type="info" plain icon="el-icon-download">导出</el-button>
-        <!-- <el-button type="text" size="small">编辑</el-button> -->
-        <el-button type="danger" icon="el-icon-delete" circle></el-button>
+        <el-button type="danger" icon="el-icon-delete" plain></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -23,6 +27,7 @@
 <script>
 import imageinfo from '../service/pictureinfo.js'
 import bus from '../service/evenbus.js'
+import myutils from '../service/myutils.js'
   export default {
     name: '',
     data(){
@@ -41,7 +46,17 @@ import bus from '../service/evenbus.js'
     components: {  },
     methods: {
       handlClick(row) {
-        console.log(row);
+        myutils.openImageDialog((selectedpath) => {
+          // 这里的路径没有转化 --没有报错？
+          imageinfo.copyfile(row.path+row.name,selectedpath)
+          this.$message({
+
+            showClose: true,
+            message: '保存成功',
+            type: 'success',
+            center: true
+          });
+        })       
       }
       
     }

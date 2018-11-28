@@ -14,16 +14,11 @@ module.exports = {
     win.loadURL(winURL)
     win.show() 
   },
-  openImageDialog(event) {
-    const saveBtn = document.getElementById('save-dialog')
-
-    saveBtn.addEventListener('click', function (event) {
-      ipc.send('save-dialog')
-    })
-
+  openImageDialog(callback) {
+    ipc.send('save-dialog')
     ipc.on('saved-file', function (event, path) {
-      if (!path) path = 'No path'
-      document.getElementById('file-saved').innerHTML = `Path selected: ${path}`
+      if (!path) path = 'No path'      
+      callback(`${path}`)
     })
   }
 
