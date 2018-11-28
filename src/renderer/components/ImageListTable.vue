@@ -3,12 +3,16 @@
   <el-table :data="imagesfilepathlist">
     <el-table-column label="预览"  width="110">
       <template slot-scope="scope">
-        <img :src="scope.row.path+scope.row.name" alt="" style="width:50px; height:50px;">
+        <img :src="scope.row.path+scope.row.name" alt="" style="width:65px; height:50px;">
       </template>
     </el-table-column>
     <!-- <el-table-column prop="path" label="路径" width="240"><span>Hello World</span>
     </el-table-column> -->
-    <el-table-column prop="name" label="名称" width="120">
+    <el-table-column prop="name" label="名称" width="150">
+      <template slot-scope="scope">
+        <!-- <img :src="scope.row.path+scope.row.name" alt="" style="width:65px; height:50px;"> -->
+        <span>{{ scope.row.name | imageNameFormat }}</span>
+      </template>
     </el-table-column>
     <el-table-column prop="size" label="大小" width="120">
     </el-table-column>
@@ -49,15 +53,23 @@ import myutils from '../service/myutils.js'
       // 导出图片 触发事件
       exportClick(row) {
         myutils.openImageDialog((selectedpath) => {
-          // 这里的路径没有转化 --没有报错？
-          imageinfo.copyfile(row.path+row.name,selectedpath)
-
-          this.$message({
+          if(selectedpath === 'No path'){
+            return false
+          }else{
+            // 拿到路径
+            imageinfo.copyfile(row.path+row.name,selectedpath)
+            this.$message({
             showClose: true,
             message: '保存成功',
             type: 'success',
             center: true
-          });
+            });
+
+          }
+          // 这里的路径没有转化 --没有报错？
+          
+
+          
         })       
       },
       // 查看按钮 触发事件

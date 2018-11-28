@@ -16,6 +16,10 @@ Vue.use(BootstrapVue)
 
 import router from './router'
 
+Vue.filter('imageNameFormat',function (name) {
+  return  name.replace(/-\d{13}-/,'')
+})
+
 
 
 

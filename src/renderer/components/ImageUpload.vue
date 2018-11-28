@@ -48,7 +48,7 @@ import bus from '../service/evenbus.js'
         this.$refs.upload.submit();
 
         // 点击上传 首先把 filelist中的所有的数据对应的 路径都保存到 一个数组中
-        this.fileList.map(imageinfo.pathFormat(item)).forEach(element => {
+        this.fileList.map(imageinfo.pathFormat).forEach(element => {
           alert(element.sourcepath+'-------'+element.topath)
           imageinfo.copyfile(element.sourcepath,element.topath)
         });
@@ -72,17 +72,17 @@ import bus from '../service/evenbus.js'
         // console.log(file);
       },
       submitAction(){
+        // 提交应该执行这里！！！？？
         alert('1')
         imageinfo.copyfile(this.sourcepath,this.topath)
         this.fileList = []
       },
       selectImage(file,fileList){
-       this.sourcepath = file.raw.path.replace(/\\/g,'/')
         // 给上传的 图片 做一个唯一的名字 --
-      //  this.topath = 'static/upload/images/'+'-'+new Date().getTime()+'-'+file.raw.name
+        // this.topath = 'static/upload/images/'+'-'+new Date().getTime()+'-'+file.raw.name
         var imageitem = {}
         imageitem.name =  file.raw.name
-        imageitem.url = this.sourcepath
+        imageitem.url = file.raw.path.replace(/\\/g,'/')
         // imageitem.status = "ready"
         this.fileList.push(imageitem)
    
