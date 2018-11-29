@@ -20,7 +20,6 @@
 
 <script>
 import imageinfo from '../service/pictureinfo.js'
-import bus from '../service/evenbus.js'
   export default {
     data() {
       return {
@@ -35,24 +34,15 @@ import bus from '../service/evenbus.js'
       };
 
     },
-    created(){
-
-    },
-    mounted(){
-    },
-    beforeMount() {   
-    },
+    props:['imageinfolist'],
     methods: {
       submitUpload() {
-
         this.$refs.upload.submit();
-
         // 点击上传 首先把 filelist中的所有的数据对应的 路径都保存到 一个数组中
         this.fileList.map(imageinfo.pathFormat).forEach(element => {
           alert(element.sourcepath+'-------'+element.topath)
           imageinfo.copyfile(element.sourcepath,element.topath)
-        });
-        
+        });       
         // 单文件上传
         // imageinfo.copyfile(this.sourcepath,this.topath)
         this.fileList = []
@@ -62,6 +52,7 @@ import bus from '../service/evenbus.js'
             type: 'success',
             center: true
         });
+        this.$emit('update:imageinfolist')
 
       },
       handleRemove(file, fileList) {
@@ -85,8 +76,6 @@ import bus from '../service/evenbus.js'
         imageitem.url = file.raw.path.replace(/\\/g,'/')
         // imageitem.status = "ready"
         this.fileList.push(imageitem)
-   
-
       }
 
     }

@@ -2,7 +2,7 @@ import { app, BrowserWindow } from 'electron'
 
 const ipc = require('electron').ipcMain
 const dialog = require('electron').dialog
-
+const path = require('path')
 // 开启保存图片的Dialog
 ipc.on('save-dialog', function (event) {
   const options = {
@@ -37,7 +37,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
-    width: 1000,
+    width: 1100,
     webPreferences:{webSecurity: false}//加上这个就可以获取到了本地的图片
   })
 

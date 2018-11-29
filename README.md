@@ -12,6 +12,9 @@ yarn
 yarn run dev
 
 # build electron application for production
+`打包暂时无法实现
+`遇到路径问题--开发环境和发布环境使用不同的协议
+
 yarn run build
 
 

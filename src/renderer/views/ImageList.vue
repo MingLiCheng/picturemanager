@@ -13,14 +13,11 @@
               <router-link to="/imagelist/listtable">
                 <el-menu-item index="1-1">图片列表</el-menu-item>
               </router-link>
-              <router-link to="">
-                <el-menu-item index="1-2">图片展示</el-menu-item>
-              </router-link>
               <router-link to="/imagelist/show">
-                <el-menu-item index="1-3">相册</el-menu-item>
+                <el-menu-item index="1-2">相册</el-menu-item>
               </router-link>             
               <router-link to="/imagelist/upload">
-                <el-menu-item index="1-4">图片上传</el-menu-item>
+                <el-menu-item index="1-3">图片上传</el-menu-item>
               </router-link>              
             </el-menu-item-group>
             <el-submenu index="1-4">
@@ -34,21 +31,13 @@
       <el-container>
 
         <!-- 上方导航栏 -->
-        <el-header style="text-align: right; font-size: 12px">
-          <!-- <el-dropdown>
-            <i class="el-icon-setting" style="margin-right: 15px"></i>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-          <span>用户</span> -->
+        <el-header style="text-align: right; font-size: 12px">         
         </el-header>
 
         <el-main>
           <!-- main 主要内容显示位置 -->
-          <router-view></router-view>
+          <router-view :imageinfolist="imagesfilepathlist"></router-view>
+
         </el-main>
 
       </el-container>
@@ -58,13 +47,23 @@
 
 <script>
   import myutils from '../service/myutils.js'
+  import imageinfo from '../service/pictureinfo.js'
+  const path = require('path')
+
   export default {
     name: '',
-    components: {
+    data(){
+      return{
+        imagesfilepathlist: [],
+      }
+    },
+    created(){
+      // 获取文件夹下的数据
+      this.imagesfilepathlist = imageinfo.getImageInfo('static/upload/images/')    
     },
     methods:{
       createNewWin(){
-        myutils.openNewWin()
+        myutils.openNewWin('static/upload/images/11.jpg')
       },
       newDialog(){
         myutils.openImageDialog((selectedpath) => {

@@ -1,6 +1,7 @@
+/* 
+  测试使用
+ */
 // const imagesfile = require('./imagesfile')
-
-
 // import imesds from ('imagesfile.js')
 
 // console.log(imagesfile.getImageFilesPath("../../../static/upload/images/"))
@@ -32,3 +33,8 @@
 // // abc.replace(/^[-]\d{13}[-]$/g,'')
 // var a = abc.replace(/-\d{13}-/,'')
 // console.log(a)
+
+
+const path = require('path')
+const modalPath = path.join('file://', __dirname, '../../renderer/windows/windows.html')
+console.log(modalPath)

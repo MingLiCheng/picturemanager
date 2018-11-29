@@ -3,13 +3,17 @@ const path = require('path')
 const ipc = require('electron').ipcRenderer
 
 
-const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080/#/imageview`
-  : `file://${__dirname}/`
 
 module.exports = {
   
-  openNewWin(){
+  openNewWin(cpath){ // #/imageview?
+    const winURL = process.env.NODE_ENV === 'development'
+    ? `http://localhost:9080/#/imageview/?path=${cpath}`
+    : `file://${__dirname}/#/imageview/?path=${cpath}`
+    // const modalPath = 'src/renderer/windows/windows.html'
+
+    // console.log(__dirname)
+    // console.log(modalPath)
     let win = new BrowserWindow({
     height: 800,
     useContentSize: true,
@@ -31,11 +35,7 @@ module.exports = {
       if (!path) path = 'No path'      
       callback(`${path}`)
     })
-  },
-  bbimg(o){ 
-    var zoom=parseInt(o.style.zoom, 10)||100;zoom+=event.wheelDelta/12;if (zoom>0) o.style.zoom=zoom+'%'; 
-    return false; 
-} 
+  }
 
 }
 
