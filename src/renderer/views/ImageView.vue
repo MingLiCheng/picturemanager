@@ -4,16 +4,15 @@
       <!-- <header-view></header-view> -->
     </el-header>
     <div class="image-box">
-      <img @click.ctrl="test" :src="$route.query.path" alt="" />
+      <img @click.ctrl="test" :class="'image-size'+flag"  :src="$route.query.path" alt="" />
     </div>     
     
-    <!-- <div class="btn-box">
+    <div class="btn-box">
       <el-button type="info" icon="el-icon-zoom-out" circle @click="test"></el-button>
-      <el-button type="info" icon="el-icon-zoom-in"  circle @click="test"></el-button>
-    </div> -->
+    </div>
     <el-row type="flex" class="row-bg">
-      <el-col :span="1" :offset="10"><el-button type="info" icon="el-icon-zoom-out" circle @click="test"></el-button></el-col>     
-      <el-col :span="1" :offset="2"><el-button type="info" icon="el-icon-zoom-in"  circle @click="test"></el-button></el-col>     
+      <el-col :span="1" :offset="10"><el-button type="info" icon="el-icon-zoom-out" circle @click="toMin"></el-button></el-col>     
+      <el-col :span="1" :offset="2"><el-button type="info" icon="el-icon-zoom-in"  circle @click="toMax"></el-button></el-col>     
     </el-row>
   </div>
 </template>
@@ -23,6 +22,11 @@ import myutils from '../service/myutils.js'
 import HeaderView from '../components/Header'
   export default {
     name: '',
+    data(){
+      return{
+        flag: 0,
+      }
+    },
     components: { 
       HeaderView
      },
@@ -31,6 +35,17 @@ import HeaderView from '../components/Header'
         // alert("点击el-header")
         this.$router.push({path: '/imagelist'})
       },
+      toMin(){
+        // alert('1')
+        if(this.flag > -2)
+        this.flag = this.flag -1
+        else
+        return
+      },
+      toMax(){
+        if(this.flag < 5)
+        this.flag = this.flag + 1
+      }
     }
   }
 </script>
@@ -45,8 +60,8 @@ import HeaderView from '../components/Header'
   /* background-color: pink; */
   padding: 2px 30px;
   position: fixed;
-  left: 45%;
-  top: 75%;
+  left: 0;
+  top: 0%;
   border: 1px solid rgb(45, 45, 45);
   border-radius: 50px;
   display: flex;
@@ -60,11 +75,6 @@ import HeaderView from '../components/Header'
   align-items: center; 
   overflow: hidden;
 }
-.image-box img{
-  zoom: 50%;
-
-  
-}
 
 .bg-purple{
   background-color: tomato;
@@ -72,6 +82,30 @@ import HeaderView from '../components/Header'
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
+}
+.image-size-2{
+  zoom: 30%;  
+}
+.image-size-1{
+  zoom: 40%;  
+}
+.image-size0{
+  zoom: 50%;  
+}
+.image-size1{
+  zoom: 60%;  
+}
+.image-size2{
+  zoom: 80%;  
+}
+.image-size3{
+  zoom: 100%;  
+}
+.image-size4{
+  zoom: 120%;  
+}
+.image-size5{
+  zoom: 200%;  
 }
 
 </style>
