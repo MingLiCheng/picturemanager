@@ -11,8 +11,8 @@
       <el-button type="info" icon="el-icon-zoom-out" circle @click="test"></el-button>
     </div>
     <el-row type="flex" class="row-bg">
-      <el-col :span="1" :offset="10"><el-button type="info" icon="el-icon-zoom-out" circle @click="toMin"></el-button></el-col>     
-      <el-col :span="1" :offset="2"><el-button type="info" icon="el-icon-zoom-in"  circle @click="toMax"></el-button></el-col>     
+      <el-col :span="1" :offset="10"><el-button type="info" icon="el-icon-zoom-out" circle @click="flag = flag > -2 ? flag-1 : flag"></el-button></el-col>     
+      <el-col :span="1" :offset="2"><el-button type="info" icon="el-icon-zoom-in"  circle @click="flag = flag < 5 ? flag+1 : flag"></el-button></el-col>     
     </el-row>
   </div>
 </template>
@@ -32,20 +32,8 @@ import HeaderView from '../components/Header'
      },
     methods: {
       test(){
-        // alert("点击el-header")
         this.$router.push({path: '/imagelist'})
       },
-      toMin(){
-        // alert('1')
-        if(this.flag > -2)
-        this.flag = this.flag -1
-        else
-        return
-      },
-      toMax(){
-        if(this.flag < 5)
-        this.flag = this.flag + 1
-      }
     }
   }
 </script>
